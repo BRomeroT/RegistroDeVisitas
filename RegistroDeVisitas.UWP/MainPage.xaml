@@ -1,0 +1,15 @@
+﻿<forms:WindowsPage
+    x:Class="RegistroDeVisitas.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:forms="using:Xamarin.Forms.Platform.UWP"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RegistroDeVisitas.UWP"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <!--xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"-->
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    </Grid>
+</forms:WindowsPage>
