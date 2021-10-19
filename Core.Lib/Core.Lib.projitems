@@ -12,13 +12,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)ApiClient\SecurityApi.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApiClient\WebApiClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL\SecurityBL.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL\SeleccionesBL.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Settings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Calle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\RepositorioDeVisitas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
+    <Compile Include="..\Core.Lib\Model\Casa.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Recepcionista.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Visita.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OS\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OS\ISettingsStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OS\PagesKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Model\" />
   </ItemGroup>
 </Project>
