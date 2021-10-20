@@ -38,7 +38,8 @@ namespace Core.ViewModels
 
         private int numero;
         public int Numero { get => numero; set => Set(ref numero, value); }
-        public List<int> Numeros => bl.GetNumeros(Calle?.Codigo);
+        public List<int> Numeros =>
+            bl.GetNumeros(Calle?.Codigo);
 
 
         private string letra;

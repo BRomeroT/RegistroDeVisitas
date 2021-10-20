@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -14,6 +15,7 @@ namespace Sysne.Core.MVVM
     /// <summary>
     /// Object with property changes notifications
     /// </summary>
+    [DebuggerStepThrough]
     public abstract class ObservableObject : INotifyPropertyChanged, IDisposable, INotifyDataErrorInfo
     {
         /// <summary>

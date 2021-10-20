@@ -16,15 +16,15 @@ namespace Core.Model
 
         public List<string> GetLetras() => new() { "A", "B", "C", "D" };
 
-        public List<int> GetNumeros(string calleCodigo = null)
+        public List<int> GetNumeros(string calleCodigo)
         {
             var res = new List<int>();
             var max = calleCodigo switch
             {
                 "RM" => 17,
-                "R0" => 32,
+                "RO" => 32,
                 "RP" => 12,
-                _ => 33
+                _ => 0
             };
             for (int i = 1; i <= max; i++)
                 res.Add(i);

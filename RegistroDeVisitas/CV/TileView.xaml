@@ -4,8 +4,8 @@
              xmlns:helpers="clr-namespace:RegistroDeVisitas.Helpers"
              x:Class="RegistroDeVisitas.CV.TileView">
     <ContentView.Content>
-        <Frame CornerRadius="5" IsClippedToBounds="True">
-            <Grid VerticalOptions="Center" HorizontalOptions="Center">
+        <Frame CornerRadius="5" IsClippedToBounds="True" Padding="0" VerticalOptions="Center" HorizontalOptions="Center">
+            <Grid>
                 <Image x:Name="imageBackground" Source="{helpers:ImageResource blueTile.png}" Aspect="AspectFill"/>
                 <Grid RowDefinitions="Auto,Auto" VerticalOptions="Center">
                     <Label x:Name="prefixLabel" Margin="10,0" Text="Real del" FontSize="Micro" FontAttributes="Italic" HorizontalOptions="Start" VerticalOptions="End"/>

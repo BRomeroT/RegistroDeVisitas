@@ -2,43 +2,68 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Core.ViewModels"
+             xmlns:helpers="clr-namespace:RegistroDeVisitas.Helpers"
              xmlns:cv="clr-namespace:RegistroDeVisitas.CV" 
              xmlns:model="clr-namespace:Core.Model"
              x:Class="RegistroDeVisitas.MainPage">
 
-    <StackLayout x:DataType="vm:MainViewModel">
-        <StackLayout.BindingContext>
+    <Grid x:DataType="vm:MainViewModel" RowDefinitions="Auto,Auto,2*,*">
+        <Grid.BindingContext>
             <vm:MainViewModel/>
-        </StackLayout.BindingContext>
+        </Grid.BindingContext>
 
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Grid RowDefinitions="2" ColumnDefinitions="2">
-                <Picker Grid.ColumnSpan="2" Title="Recepcionista" ItemsSource="{Binding Recepcionistas}" SelectedItem="{Binding Recepcionista}" ItemDisplayBinding="{Binding Nombre}"/>
-                <Label Grid.Row="1" Text="}"/>
+        <Frame Padding="15" CornerRadius="0" HasShadow="True">
+            <Frame.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#D969F6" Offset="0.1"/>
+                    <GradientStop Color="#AC4DF2" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Frame.Background>
+
+            <Grid ColumnDefinitions="Auto,*,2*" >
+                <Image Aspect="AspectFit" Source="{helpers:ImageResource receptionIcon.png}"/>
+                <Picker Grid.Column="1" VerticalOptions="Center" ItemsSource="{Binding Recepcionistas}" SelectedItem="{Binding Recepcionista}" ItemDisplayBinding="{Binding Nombre}"/>
+                <Label Grid.Column="2" VerticalOptions="Center" x:Name="time" HorizontalTextAlignment="End"/>
             </Grid>
         </Frame>
 
-        <CollectionView ChildAdded="CollectionView_ChildAdded" SelectionMode="Single" SelectedItem="{Binding Calle}" ItemsSource="{Binding Calles}" ItemsLayout="HorizontalList">
+        <!--<StackLayout Grid.Row="1">-->
+            <CollectionView HeightRequest="200" Grid.Row="1" VerticalOptions="Start" ChildAdded="CollectionView_ChildAdded" SelectionMode="Single" SelectedItem="{Binding Calle}" ItemsSource="{Binding Calles}" ItemsLayout="HorizontalList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Calle">
+                        <cv:TileView Margin="5" Prefix="{Binding Prefijo}" Name="{Binding Nombre}" Sufix="{Binding Sufijo}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid Grid.Row="2" ColumnDefinitions="5*,*">
+                <CollectionView SelectionMode="Single" ItemsSource="{Binding Numeros}"  ItemsLayout="VerticalGrid,8"></CollectionView>
+                <CollectionView Grid.Column="1" VerticalOptions="End" SelectionMode="Single" ItemsSource="{Binding Letras}" ></CollectionView>
+            </Grid>
+
+        <!--</StackLayout>-->
+
+        <!--
+        <CollectionView ItemsSource="{Binding Numeros}" SelectedItem="{Binding Numero}" ItemsLayout="VerticalGrid,8">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Calle">
-                    <cv:TileView Prefix="{Binding Prefijo}" Name="{Binding Nombre}" Sufix="{Binding Sufijo}"/>
+                <DataTemplate>
+                    <Frame>
+                        <Label Text="{Binding}" FontSize="Subtitle"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Button Text="Demo" Margin="25" HorizontalOptions="Center"/>
-    </StackLayout>
+        <CollectionView Grid.Column="1" ItemsSource="{Binding Letras}" SelectedItem="{Binding Letra}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame>
+                        <Label Text="{Binding}" FontSize="Subtitle"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        </Grid>-->
+    </Grid>
 
 </ContentPage>

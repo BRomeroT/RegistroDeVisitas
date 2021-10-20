@@ -12,18 +12,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\receptionIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Images\blueTile.png" />
     <EmbeddedResource Include="Images\greenTile.png" />
     <EmbeddedResource Include="Images\orangeTile.png" />
     <EmbeddedResource Include="Images\pinkTile.png" />
     <EmbeddedResource Include="Images\purpleTile.png" />
+    <EmbeddedResource Include="Images\receptionIcon.png" />
     <EmbeddedResource Include="Images\violetTile.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
 

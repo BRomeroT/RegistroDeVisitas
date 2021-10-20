@@ -30,6 +30,7 @@ namespace RegistroDeVisitas.UWP
             //// https://startdebugging.net/2018/01/using-acrylic-brush-xamarin-forms-masterdetail/
             var mainPage = (app.MainPage as RegistroDeVisitas.MainPage);
             var render = Platform.GetRenderer(mainPage) as PageRenderer;
+            if (render == null) return;
             //var acrylicBrush = new Windows.UI.Xaml.Media.AcrylicBrush();
             //acrylicBrush.BackgroundSource = Windows.UI.Xaml.Media.AcrylicBackgroundSource.HostBackdrop;
             var acrylicBrush = Application.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"] as AcrylicBrush;

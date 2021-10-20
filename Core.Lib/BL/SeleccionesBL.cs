@@ -19,7 +19,7 @@ namespace Core.BL
 
         public List<Calle> Calles { get => repository.GetCalles(); }
 
-        public List<int> GetNumeros(string calleCodigo = null) => repository.GetNumeros(calleCodigo);
+        public List<int> GetNumeros(string calleCodigo) => repository.GetNumeros(calleCodigo);
 
         public List<string> Letras { get => repository.GetLetras(); }
 
