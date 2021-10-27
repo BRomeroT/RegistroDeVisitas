@@ -13,7 +13,7 @@ namespace Core.ViewModels
     {
         public MainViewModel() : base()
         {
-            
+
         }
 
         private Recepcionista recepcionista;
@@ -23,13 +23,14 @@ namespace Core.ViewModels
 
         private DateTime fechaHora;
         public DateTime FechaHora { get => fechaHora; set => Set(ref fechaHora, value); }
-         
+
         private Calle calle;
         public Calle Calle
         {
             get => calle; set
             {
                 Set(ref calle, value);
+                Numero = 0;
                 RaisePropertyChanged(nameof(Numeros));
             }
         }
@@ -37,10 +38,15 @@ namespace Core.ViewModels
 
 
         private int numero;
-        public int Numero { get => numero; set => Set(ref numero, value); }
-        public List<int> Numeros =>
-            bl.GetNumeros(Calle?.Codigo);
-
+        public int Numero
+        {
+            get => numero;
+            set { 
+                Set(ref numero, value);
+                Letra = String.Empty;
+            }
+        }
+        public List<int> Numeros => bl.GetNumeros(Calle?.Codigo);
 
         private string letra;
         public string Letra { get => letra; set => Set(ref letra, value); }

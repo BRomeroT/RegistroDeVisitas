@@ -29,13 +29,40 @@ namespace RegistroDeVisitas
 
         CV.TileView.Colors activeColor = CV.TileView.Colors.Blue;
 
-        private void CollectionView_ChildAdded(object sender, ElementEventArgs e)
+        private void CallesCollectionView_ChildAdded(object sender, ElementEventArgs e)
         {
             var tile = e.Element as CV.TileView;
             if (tile != null) tile.Color = activeColor;
             if (activeColor == CV.TileView.Colors.Violet) activeColor = CV.TileView.Colors.Blue;
             else activeColor++;
-            (sender as CollectionView).HeightRequest = tile.Height;
+        }
+
+        private void SetSelectedLabel(object sender,ref Label seleccionadaLabel)
+        {
+            if (seleccionadaLabel != null)
+            {
+                seleccionadaLabel.FontAttributes = FontAttributes.None;
+                seleccionadaLabel.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
+            }
+            seleccionadaLabel = (sender as Label);
+            seleccionadaLabel.FontAttributes = FontAttributes.Bold;
+            seleccionadaLabel.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label));
+        }
+
+        Label numeroSeleccionadoLabel = null;
+        private void NumeroTapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            SetSelectedLabel(sender, ref numeroSeleccionadoLabel);
+            //HACK: La burbuja de enlace con el contenedor (CollectionView) se detiene con este Gesture Recognizer
+            viewModel.Numero = int.Parse(numeroSeleccionadoLabel.Text);
+        }
+
+        Label letraSeleccionadoLabel = null;
+        private void LetraTapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            SetSelectedLabel(sender,ref letraSeleccionadoLabel);
+            //HACK: La burbuja de enlace con el contenedor (CollectionView) se detiene con este Gesture Recognizer
+            viewModel.Letra = letraSeleccionadoLabel.Text;
         }
     }
 }

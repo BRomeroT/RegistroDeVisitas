@@ -5,6 +5,13 @@
              x:Class="RegistroDeVisitas.CV.TileView">
     <ContentView.Content>
         <Frame CornerRadius="5" IsClippedToBounds="True" Padding="0" VerticalOptions="Center" HorizontalOptions="Center">
+            <ContentView.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Label">
+                        <Setter Property="TextColor" Value="White"/>
+                    </Style>
+                </ResourceDictionary>
+            </ContentView.Resources>
             <Grid>
                 <Image x:Name="imageBackground" Source="{helpers:ImageResource blueTile.png}" Aspect="AspectFill"/>
                 <Grid RowDefinitions="Auto,Auto" VerticalOptions="Center">

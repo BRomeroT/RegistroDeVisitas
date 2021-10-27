@@ -6,10 +6,15 @@
              xmlns:cv="clr-namespace:RegistroDeVisitas.CV" 
              xmlns:model="clr-namespace:Core.Model"
              x:Class="RegistroDeVisitas.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:EmptyOrNullBoolValueConverter x:Key="NullToBool"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-    <Grid x:DataType="vm:MainViewModel" RowDefinitions="Auto,Auto,2*,*">
+    <Grid x:DataType="vm:MainViewModel" RowDefinitions="Auto,*">
         <Grid.BindingContext>
-            <vm:MainViewModel/>
+            <vm:MainViewModel x:Name="viewModel"/>
         </Grid.BindingContext>
 
         <Frame Padding="15" CornerRadius="0" HasShadow="True">
@@ -27,43 +32,44 @@
             </Grid>
         </Frame>
 
-        <!--<StackLayout Grid.Row="1">-->
-            <CollectionView HeightRequest="200" Grid.Row="1" VerticalOptions="Start" ChildAdded="CollectionView_ChildAdded" SelectionMode="Single" SelectedItem="{Binding Calle}" ItemsSource="{Binding Calles}" ItemsLayout="HorizontalList">
+        <Grid Grid.Row="1" RowDefinitions="150,*" ColumnDefinitions="5*,*" IsVisible="{Binding Recepcionista, Converter={StaticResource NullToBool}}">
+
+            <CollectionView Grid.ColumnSpan="2" ItemsLayout="HorizontalList" SelectionMode="Single" ChildAdded="CallesCollectionView_ChildAdded"
+                        SelectedItem="{Binding Calle}" ItemsSource="{Binding Calles}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Calle">
-                        <cv:TileView Margin="5" Prefix="{Binding Prefijo}" Name="{Binding Nombre}" Sufix="{Binding Sufijo}"/>
+                        <cv:TileView Padding="10" Prefix="{Binding Prefijo}" Name="{Binding Nombre}" Sufix="{Binding Sufijo}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Grid Grid.Row="2" ColumnDefinitions="5*,*">
-                <CollectionView SelectionMode="Single" ItemsSource="{Binding Numeros}"  ItemsLayout="VerticalGrid,8"></CollectionView>
-                <CollectionView Grid.Column="1" VerticalOptions="End" SelectionMode="Single" ItemsSource="{Binding Letras}" ></CollectionView>
-            </Grid>
+            <CollectionView Grid.Row="1" SelectionMode="Single" ItemsLayout="VerticalGrid,8"
+                            ItemsSource="{Binding Numeros}" SelectedItem="{Binding Numero}" IsVisible="{Binding Calle,Converter={StaticResource NullToBool}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:Int32">
+                        <Label Text="{Binding}" FontSize="Medium" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="NumeroTapGestureRecognizer_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <CollectionView Grid.Row="1" Grid.Column="1" VerticalOptions="End" SelectionMode="Single" 
+                            ItemsSource="{Binding Letras}" SelectedItem="{Binding Letra}" IsVisible="{Binding Numero,Converter={StaticResource NullToBool}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Label Text="{Binding}" FontSize="Medium" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="LetraTapGestureRecognizer_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <!--</StackLayout>-->
-
-        <!--
-        <CollectionView ItemsSource="{Binding Numeros}" SelectedItem="{Binding Numero}" ItemsLayout="VerticalGrid,8">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame>
-                        <Label Text="{Binding}" FontSize="Subtitle"  VerticalOptions="Center" HorizontalOptions="Center"/>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <CollectionView Grid.Column="1" ItemsSource="{Binding Letras}" SelectedItem="{Binding Letra}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame>
-                        <Label Text="{Binding}" FontSize="Subtitle"  VerticalOptions="Center" HorizontalOptions="Center"/>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        </Grid>-->
+        </Grid>
     </Grid>
 
 </ContentPage>
