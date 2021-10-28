@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Core.BL
 {
-    public class SeleccionesBL : ObservableObject
+    internal class SeleccionesBL : ObservableObject
     {
         readonly IRepository repository;
         public SeleccionesBL(IRepository repository) =>

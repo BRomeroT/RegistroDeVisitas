@@ -11,7 +11,8 @@ namespace Core.Model
         {
             new("RM", "Real de", "Minas"),
             new("RO", "Real de", "Oro"),
-            new("RP", "Real de", "Plata")
+            new("RP", "Real de", "Plata"),
+            new("RS", "Fracionamiento real de", "Santa Clara")
         };
 
         public List<string> GetLetras() => new() { "A", "B", "C", "D" };
@@ -24,6 +25,7 @@ namespace Core.Model
                 "RM" => 17,
                 "RO" => 32,
                 "RP" => 12,
+                "RS" => 1,
                 _ => 0
             };
             for (int i = 1; i <= max; i++)

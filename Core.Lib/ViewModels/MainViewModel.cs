@@ -9,20 +9,33 @@ using Sysne.Core.MVVM.Patterns;
 
 namespace Core.ViewModels
 {
-    public class MainViewModel : ViewModelWithBL<SeleccionesBL>
+    public class MainViewModel : ViewModelBase
     {
-        public MainViewModel() : base()
-        {
+        private readonly SeleccionesBL seleccionesBL = new();
+        private readonly RegistroBL registroBL = new();
 
+        public MainViewModel()
+        {
+            PropertyChanged += (s, e) =>
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(Recepcionista):
+                    case nameof(Calle):
+                    case nameof(Numero):
+                    case nameof(Letra):
+                        RaisePropertyChanged(nameof(EsDestinoValido));
+                        break;
+                    default:
+                        break;
+                }
+            };
         }
 
         private Recepcionista recepcionista;
         public Recepcionista Recepcionista { get => recepcionista; set => Set(ref recepcionista, value); }
 
-        public List<Recepcionista> Recepcionistas => bl.Recepcionistas;
-
-        private DateTime fechaHora;
-        public DateTime FechaHora { get => fechaHora; set => Set(ref fechaHora, value); }
+        public List<Recepcionista> Recepcionistas => seleccionesBL.Recepcionistas;
 
         private Calle calle;
         public Calle Calle
@@ -34,22 +47,40 @@ namespace Core.ViewModels
                 RaisePropertyChanged(nameof(Numeros));
             }
         }
-        public List<Calle> Calles => bl.Calles;
-
+        public List<Calle> Calles => seleccionesBL.Calles;
 
         private int numero;
         public int Numero
         {
             get => numero;
-            set { 
+            set
+            {
                 Set(ref numero, value);
                 Letra = String.Empty;
             }
         }
-        public List<int> Numeros => bl.GetNumeros(Calle?.Codigo);
+        public List<int> Numeros => seleccionesBL.GetNumeros(Calle?.Codigo);
 
         private string letra;
         public string Letra { get => letra; set => Set(ref letra, value); }
-        public List<string> Letras => bl.Letras;
+        public List<string> Letras => seleccionesBL.Letras;
+
+        public bool EsDestinoValido { get => Recepcionista != null && Calle != null && Numero > 0 && !string.IsNullOrEmpty(Letra); }
+
+        private Visita visita = new();
+        public Visita Visita { get => visita; set => Set(ref visita, value); }
+
+        RelayCommand registrarCommand = null;
+        public RelayCommand RegistrarCommand
+        {
+            get => registrarCommand ??= new RelayCommand(() =>
+            {
+                Visita.CasaCodigo = $"{Calle.Codigo}{Numero:00}{Letra}";
+                Visita.Entrada = DateTime.Now;
+                Visita.Recepcionista = Recepcionista.Nombre;
+                registroBL.RegistrarVisita(Visita);
+                Visita = new();
+            }, () => true);
+        }
     }
 }

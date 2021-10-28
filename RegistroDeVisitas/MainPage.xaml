@@ -17,6 +17,7 @@
             <vm:MainViewModel x:Name="viewModel"/>
         </Grid.BindingContext>
 
+        <!--#Region Banner -->
         <Frame Padding="15" CornerRadius="0" HasShadow="True">
             <Frame.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -31,8 +32,10 @@
                 <Label Grid.Column="2" VerticalOptions="Center" x:Name="time" HorizontalTextAlignment="End"/>
             </Grid>
         </Frame>
-
-        <Grid Grid.Row="1" RowDefinitions="150,*" ColumnDefinitions="5*,*" IsVisible="{Binding Recepcionista, Converter={StaticResource NullToBool}}">
+        <!--#endregion-->
+        
+        <!--#region Registro-->
+        <Grid Grid.Row="1" RowDefinitions="100,*,*" ColumnDefinitions="5*,*" IsVisible="{Binding Recepcionista, Converter={StaticResource NullToBool}}">
 
             <CollectionView Grid.ColumnSpan="2" ItemsLayout="HorizontalList" SelectionMode="Single" ChildAdded="CallesCollectionView_ChildAdded"
                         SelectedItem="{Binding Calle}" ItemsSource="{Binding Calles}">
@@ -55,7 +58,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
+
             <CollectionView Grid.Row="1" Grid.Column="1" VerticalOptions="End" SelectionMode="Single" 
                             ItemsSource="{Binding Letras}" SelectedItem="{Binding Letra}" IsVisible="{Binding Numero,Converter={StaticResource NullToBool}}">
                 <CollectionView.ItemTemplate>
@@ -69,7 +72,24 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <Grid Padding="10" Grid.Row="2" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="*,2*,2*,*" IsVisible="{Binding EsDestinoValido}">
+                <Image Grid.RowSpan="3"/>
+                <Button Grid.Row="3" Text="📷"/>
+
+                <Entry Text="{Binding Visita.NumeroDePase}" Grid.Column="1" Keyboard="Numeric" ReturnType="Next" Placeholder="Tarjetón entregado"/>
+                <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" VerticalOptions="Start" Text="🏷️ Número de tarjetón"/>
+                <Entry Text="{Binding Visita.Placas}" Grid.Column="2" ReturnType="Next" Placeholder="Placas del auto" TextTransform="Uppercase"/>
+                <Label Grid.Row="1" Grid.Column="2" FontSize="Micro" VerticalOptions="Start" Text="🚘 Placas"/>
+                <Entry Text="{Binding Visita.NombreVisita}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" ReturnType="Next" Placeholder="Nombre de la persona que entra" IsTextPredictionEnabled="True"/>
+                <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="Micro" VerticalOptions="Start" Text="🤵 Nombre de la vista"/>
+                <Editor Text="{Binding Visita.Notas}" Grid.Row="4" Grid.ColumnSpan="3" IsSpellCheckEnabled="True" Keyboard="Chat" AutoSize="TextChanges" IsTextPredictionEnabled="True" Placeholder="Solo si ha alguna observación especial" />
+                <Label Grid.Row="5" Grid.ColumnSpan="3" FontSize="Micro" VerticalOptions="Start" Text="📝 Notas"/>
+
+                <Button Command="{Binding RegistrarCommand}" Grid.Column="3" Grid.RowSpan="5" CornerRadius="10" Text="✍️ Registrar"/>
+
+            </Grid>
         </Grid>
+        <!--#endregion-->
     </Grid>
 
 </ContentPage>

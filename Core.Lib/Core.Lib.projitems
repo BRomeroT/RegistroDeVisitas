@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApiClient\SecurityApi.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApiClient\WebApiClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL\RegistroBL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL\SecurityBL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL\SeleccionesBL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IRepository.cs" />

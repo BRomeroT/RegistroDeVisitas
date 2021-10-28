@@ -8,8 +8,11 @@ namespace Core.Model
     public class Visita : ObservableObject
     {
 
-        private int id;
-        public int Id { get => id; set => Set(ref id, value); }
+        private Guid id = Guid.NewGuid();
+        public Guid Id { get => id; set => Set(ref id, value); }
+
+        private string recepcionista;
+        public string Recepcionista { get => recepcionista; set => Set(ref recepcionista, value); }
 
         private string casaCodigo;
         public string CasaCodigo { get => casaCodigo; set => Set(ref casaCodigo, value); }
@@ -20,13 +23,16 @@ namespace Core.Model
         private DateTime entrada = DateTime.Now;
         public DateTime Entrada { get => entrada; set => Set(ref entrada, value); }
 
-        private DateTime? salida;
-        public DateTime? Salida { get => salida; set => Set(ref salida, value); }
-
         private string placas;
         public string Placas { get => placas; set => Set(ref placas, value); }
 
+        private string nombreVisita;
+        public string NombreVisita { get => nombreVisita; set => Set(ref nombreVisita, value); }
+
         private string notas;
         public string Notas { get => notas; set => Set(ref notas, value); }
+
+        private DateTime? salida;
+        public DateTime? Salida { get => salida; set => Set(ref salida, value); }
     }
 }
