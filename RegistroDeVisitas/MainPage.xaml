@@ -73,8 +73,8 @@
             </CollectionView>
 
             <Grid Padding="10" Grid.Row="2" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="*,2*,2*,*" IsVisible="{Binding EsDestinoValido}">
-                <Image Grid.RowSpan="3"/>
-                <Button Grid.Row="3" Text="📷"/>
+                <Image x:Name="fotoImage" Grid.RowSpan="3"/>
+                <Button Grid.Row="3" Text="📷" Pressed="TakePictureButton_Pressed"/>
 
                 <Entry Text="{Binding Visita.NumeroDePase}" Grid.Column="1" Keyboard="Numeric" ReturnType="Next" Placeholder="Tarjetón entregado"/>
                 <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" VerticalOptions="Start" Text="🏷️ Número de tarjetón"/>

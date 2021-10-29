@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace RegistroDeVisitas
@@ -37,7 +39,7 @@ namespace RegistroDeVisitas
             else activeColor++;
         }
 
-        private void SetSelectedLabel(object sender,ref Label seleccionadaLabel)
+        private void SetSelectedLabel(object sender, ref Label seleccionadaLabel)
         {
             if (seleccionadaLabel != null)
             {
@@ -60,9 +62,29 @@ namespace RegistroDeVisitas
         Label letraSeleccionadoLabel = null;
         private void LetraTapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            SetSelectedLabel(sender,ref letraSeleccionadoLabel);
+            SetSelectedLabel(sender, ref letraSeleccionadoLabel);
             //HACK: La burbuja de enlace con el contenedor (CollectionView) se detiene con este Gesture Recognizer
             viewModel.Letra = letraSeleccionadoLabel.Text;
+        }
+
+        private async void TakePictureButton_Pressed(object sender, EventArgs e)
+        {
+            try
+            {
+                var foto = await MediaPicker.CapturePhotoAsync();
+                using var stream = await foto.OpenReadAsync();
+                using var ms = new MemoryStream();
+                await stream.CopyToAsync(ms);
+
+                var base64 = Convert.ToBase64String(ms.ToArray());
+                viewModel.Visita.Foto = base64; //$"data:image/jpg;base64,{base64}";
+                fotoImage.Source = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(base64)));
+                if (File.Exists(foto.FullPath)) File.Delete(foto.FullPath);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error al tomar foto", ex.Message, "Ok"); //"No se pudo tomar la fotografía, por favor inténtelo nuevamente", "Aceptar");
+            }
         }
     }
 }

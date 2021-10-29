@@ -32,6 +32,10 @@ namespace Core.Model
         private string notas;
         public string Notas { get => notas; set => Set(ref notas, value); }
 
+
+        private string foto;
+        public string Foto { get => foto; set => Set(ref foto, value); }
+
         private DateTime? salida;
         public DateTime? Salida { get => salida; set => Set(ref salida, value); }
     }
