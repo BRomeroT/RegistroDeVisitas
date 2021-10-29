@@ -9,6 +9,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <helpers:EmptyOrNullBoolValueConverter x:Key="NullToBool"/>
+            <helpers:Base64ToImageSourceValueConverter x:Key="Base64ToImageSource"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -73,7 +74,7 @@
             </CollectionView>
 
             <Grid Padding="10" Grid.Row="2" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="*,2*,2*,*" IsVisible="{Binding EsDestinoValido}">
-                <Image x:Name="fotoImage" Grid.RowSpan="3"/>
+                <Image x:Name="fotoImage" Grid.RowSpan="3" Source="{Binding Visita.Foto,Converter={StaticResource Base64ToImageSource}}"/>
                 <Button Grid.Row="3" Text="📷" Pressed="TakePictureButton_Pressed"/>
 
                 <Entry Text="{Binding Visita.NumeroDePase}" Grid.Column="1" Keyboard="Numeric" ReturnType="Next" Placeholder="Tarjetón entregado"/>
@@ -85,7 +86,7 @@
                 <Editor Text="{Binding Visita.Notas}" Grid.Row="4" Grid.ColumnSpan="3" IsSpellCheckEnabled="True" Keyboard="Chat" AutoSize="TextChanges" IsTextPredictionEnabled="True" Placeholder="Solo si ha alguna observación especial" />
                 <Label Grid.Row="5" Grid.ColumnSpan="3" FontSize="Micro" VerticalOptions="Start" Text="📝 Notas"/>
 
-                <Button Command="{Binding RegistrarCommand}" Grid.Column="3" Grid.RowSpan="5" CornerRadius="10" Text="✍️ Registrar"/>
+                <Button Command="{Binding RegistrarCommand}" Grid.Column="3" Grid.RowSpan="5" CornerRadius="10" Text="✍️ Guardar" BackgroundColor="#09A285" Opacity="0.9"/>
 
             </Grid>
         </Grid>

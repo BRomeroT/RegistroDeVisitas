@@ -72,13 +72,13 @@ namespace RegistroDeVisitas
             try
             {
                 var foto = await MediaPicker.CapturePhotoAsync();
+                if (foto == null) return;
                 using var stream = await foto.OpenReadAsync();
                 using var ms = new MemoryStream();
                 await stream.CopyToAsync(ms);
 
                 var base64 = Convert.ToBase64String(ms.ToArray());
-                viewModel.Visita.Foto = base64; //$"data:image/jpg;base64,{base64}";
-                fotoImage.Source = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(base64)));
+                viewModel.Visita.Foto = base64; 
                 if (File.Exists(foto.FullPath)) File.Delete(foto.FullPath);
             }
             catch (Exception ex)
