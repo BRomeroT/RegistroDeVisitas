@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Credential.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Item.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Section.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Visita.cs" />
   </ItemGroup>
 </Project>
