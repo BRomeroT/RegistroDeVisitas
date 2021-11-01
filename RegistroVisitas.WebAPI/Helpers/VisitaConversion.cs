@@ -4,9 +4,8 @@ namespace SharedAPIModel
 {
     public partial class Visita
     {
-        public static implicit operator Model.Visita(Visita v)
-        {
-            return new()
+        public static implicit operator Model.Visita(Visita v) =>
+            new()
             {
                 Id = v.Id,
                 Recepcionista = v.Recepcionista,
@@ -18,6 +17,5 @@ namespace SharedAPIModel
                 Foto = v.Foto,
                 FechaHoraDeSalida = v.FechaHoraDeSalida
             };
-        }
     }
 }

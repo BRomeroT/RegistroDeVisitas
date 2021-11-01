@@ -73,12 +73,12 @@ namespace Core.ViewModels
         RelayCommand registrarCommand = null;
         public RelayCommand RegistrarCommand
         {
-            get => registrarCommand ??= new RelayCommand(() =>
+            get => registrarCommand ??= new RelayCommand(async () =>
             {
                 Visita.CasaCodigo = $"{Calle.Codigo}{Numero:00}{Letra}";
                 Visita.Entrada = DateTime.Now;
                 Visita.Recepcionista = Recepcionista.Nombre;
-                registroBL.RegistrarVisita(Visita);
+                await registroBL.RegistrarVisita(Visita);
                 Visita = new();
             }, () => true);
         }

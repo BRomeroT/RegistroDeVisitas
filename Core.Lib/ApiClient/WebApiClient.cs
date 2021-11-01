@@ -83,7 +83,7 @@ namespace Sysne.Core.ApiClient
         public async Task<(HttpStatusCode StatusCode, TResponse Content)> CallAsync<TResponse>(HttpMethod method, string url, HttpContent content = null)
         {
             using var requestMessage = new HttpRequestMessage(method, url);
-            if (!requestMessage.RequestUri.IsAbsoluteUri)
+            if (requestMessage.RequestUri == null || !requestMessage.RequestUri.IsAbsoluteUri)
                 requestMessage.RequestUri = new Uri(UrlBaseWebApi + url);
             if (content != null) requestMessage.Content = content;
             return await ProcessResponse<TResponse>(requestMessage);

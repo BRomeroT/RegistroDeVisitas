@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core.Model
 {
-    public class Visita : ObservableObject
+    public partial class Visita : ObservableObject
     {
 
         private Guid id = Guid.NewGuid();

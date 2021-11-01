@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Lib.OS;
+using RegistroDeVisitas.OS;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,7 +11,8 @@ namespace RegistroDeVisitas
         public App()
         {
             InitializeComponent();
-           
+            Sysne.Core.OS.DependencyService.Register<SettingsStorage, ISettingsStorage>();
+
             MainPage = new MainPage();
         }
 
