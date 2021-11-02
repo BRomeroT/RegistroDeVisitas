@@ -70,16 +70,21 @@ namespace Core.ViewModels
         private Visita visita = new();
         public Visita Visita { get => visita; set => Set(ref visita, value); }
 
+        private bool registroExitoso;
+        public bool RegistroExitoso { get => registroExitoso; set => Set(ref registroExitoso, value); }
+
         RelayCommand registrarCommand = null;
         public RelayCommand RegistrarCommand
         {
             get => registrarCommand ??= new RelayCommand(async () =>
             {
+                Processing = true;
                 Visita.CasaCodigo = $"{Calle.Codigo}{Numero:00}{Letra}";
                 Visita.Entrada = DateTime.Now;
                 Visita.Recepcionista = Recepcionista.Nombre;
-                await registroBL.RegistrarVisita(Visita);
-                Visita = new();
+                RegistroExitoso = await registroBL.RegistrarVisita(Visita);
+                if (RegistroExitoso) Visita = new();
+                Processing = false;
             }, () => true);
         }
     }

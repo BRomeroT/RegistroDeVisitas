@@ -87,8 +87,12 @@
                 <Label Grid.Row="5" Grid.ColumnSpan="3" FontSize="Micro" VerticalOptions="Start" Text="📝 Notas"/>
 
                 <Button Command="{Binding RegistrarCommand}" Grid.Column="3" Grid.RowSpan="5" CornerRadius="10" Text="✍️ Guardar" BackgroundColor="#09A285" Opacity="0.9"/>
-
+                
             </Grid>
+
+            <Frame BackgroundColor="WhiteSmoke" IsVisible="{Binding Processing}" Grid.RowSpan="3" Grid.ColumnSpan="2" Opacity="0.2" CornerRadius="5"/>
+            <ActivityIndicator IsVisible="{Binding Processing}" IsRunning="{Binding Processing}" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+
         </Grid>
         <!--#endregion-->
     </Grid>

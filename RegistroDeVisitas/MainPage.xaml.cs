@@ -25,6 +25,19 @@ namespace RegistroDeVisitas
             timer.Elapsed += (s, e) =>
                 Dispatcher.BeginInvokeOnMainThread(() => ShowDateTime());
             timer.Start();
+
+            viewModel.PropertyChanged += (s, e) =>
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(viewModel.RegistroExitoso):
+                        if (viewModel.Processing && !viewModel.RegistroExitoso)
+                            DisplayAlert("Erro de registro", "No se pudo registrar la entrada, favor de intentar nuevamente", "Aceptar");
+                        break;
+                    default:
+                        break;
+                }
+            };
         }
 
         ~MainPage() => timer.Stop();
