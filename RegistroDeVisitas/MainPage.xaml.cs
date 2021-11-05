@@ -40,14 +40,19 @@ namespace RegistroDeVisitas
             };
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await viewModel.ActualizarVisitasActivasCommand.ExecuteAsync();
+        }
+
         ~MainPage() => timer.Stop();
 
         CV.TileView.Colors activeColor = CV.TileView.Colors.Blue;
 
         private void CallesCollectionView_ChildAdded(object sender, ElementEventArgs e)
         {
-            var tile = e.Element as CV.TileView;
-            if (tile != null) tile.Color = activeColor;
+            if (e.Element is CV.TileView tile) tile.Color = activeColor;
             if (activeColor == CV.TileView.Colors.Violet) activeColor = CV.TileView.Colors.Blue;
             else activeColor++;
         }
@@ -91,12 +96,40 @@ namespace RegistroDeVisitas
                 await stream.CopyToAsync(ms);
 
                 var base64 = Convert.ToBase64String(ms.ToArray());
-                viewModel.Visita.Foto = base64; 
+                viewModel.Visita.Foto = base64;
                 if (File.Exists(foto.FullPath)) File.Delete(foto.FullPath);
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Error al tomar foto", ex.Message, "Ok"); //"No se pudo tomar la fotografía, por favor inténtelo nuevamente", "Aceptar");
+            }
+        }
+
+        private void TabImageButton_Clicked(object sender, EventArgs e)
+        {
+            var button = sender as ImageButton;
+            var parent = (button.Parent as StackLayout);
+            foreach (var options in parent.Children)
+                options.Style = null;
+            button.Style = parent.Resources["Selected"] as Style;
+            switch (button.CommandParameter.ToString())
+            {
+                case "registro":
+                    registroGrid.IsVisible = true;
+                    salidaGrid.IsVisible = false;
+                    historialGrid.IsVisible = false;
+                    break;
+                case "salida":
+                    registroGrid.IsVisible = false;
+                    salidaGrid.IsVisible = true;
+                    historialGrid.IsVisible = false;
+                    break;
+                case "historial":
+                    registroGrid.IsVisible = false;
+                    salidaGrid.IsVisible = false;
+                    historialGrid.IsVisible = true;
+                    break;
+                default: break;
             }
         }
     }

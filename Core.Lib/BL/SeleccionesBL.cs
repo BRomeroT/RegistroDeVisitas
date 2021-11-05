@@ -3,6 +3,7 @@ using Core.Model;
 using Sysne.Core.MVVM;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Core.BL
@@ -15,7 +16,7 @@ namespace Core.BL
 
         public SeleccionesBL() => repository = new RepositorioDeVisitas();
 
-        public List<Recepcionista> Recepcionistas { get => repository.GetRecepcionistas(); }
+        public List<Recepcionista> Recepcionistas { get => repository.GetRecepcionistas().OrderBy(r=>r.Nombre).ToList(); }
 
         public List<Calle> Calles { get => repository.GetCalles(); }
 

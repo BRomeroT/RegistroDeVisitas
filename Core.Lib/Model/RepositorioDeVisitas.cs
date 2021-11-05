@@ -41,7 +41,7 @@ namespace Core.Model
             new(4, "Mario"),
             new(5, "Martha"),
             new(6, "Pedro"),
-            new(7, "Apoyo")
+            new(7, "--Otro--")
         }
 ;
         public List<Visita> GetVisitas(DateTime? fecha = null)

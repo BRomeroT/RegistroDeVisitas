@@ -14,5 +14,11 @@ namespace Core.ApiClient
 
         public async Task<(HttpStatusCode StatusCode, bool Registrado)> Registrar(SharedAPIModel.Visita visita) =>
             await CallPostAsync<SharedAPIModel.Visita, bool>("", visita);
+
+        public async Task<(HttpStatusCode StatusCode, IEnumerable<SharedAPIModel.Visita>)> GetVisitasActias() =>
+            await CallGetAsync<IEnumerable<SharedAPIModel.Visita>>("");
+
+        public async Task<(HttpStatusCode StatusCode, bool Registrado)> Salida(SharedAPIModel.Visita visita) =>
+            await CallPostAsync<SharedAPIModel.Visita, bool>("Salida", visita);
     }
 }

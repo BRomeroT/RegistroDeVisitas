@@ -10,6 +10,7 @@ namespace SharedAPIModel
         public string NumeroDePase { get; set; }
         public DateTime FechaHoraDeEntrada { get; set; }
         public string Visitante { get; set; }
+        public string Placas { get; set; }
         public string Notas { get; set; }
         public string Foto { get; set; }
         public DateTime? FechaHoraDeSalida { get; set; }

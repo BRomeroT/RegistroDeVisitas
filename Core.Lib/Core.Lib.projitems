@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)BL\SeleccionesBL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Settings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\VisitaConversion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Calle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\RepositorioDeVisitas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />

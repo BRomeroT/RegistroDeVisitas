@@ -276,9 +276,7 @@ namespace Sysne.Core.ApiClient
                     CertHandler.ServerCertificateCustomValidationCallback = (m, cer, chain, e) => true;
                 }
             }
-#pragma warning disable CA1031 // Only because for Blazor don't implments ServerCertificateCustomValidationCallback
             catch { return; }
-#pragma warning restore CA1031 // Do not catch general exception types
         }
     }
 }

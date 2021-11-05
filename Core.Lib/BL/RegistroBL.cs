@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Net;
+
 namespace Core.BL
 {
     internal class RegistroBL : ObservableObject
@@ -15,7 +17,18 @@ namespace Core.BL
         public async Task<bool> RegistrarVisita(Visita visita)
         {
             var (StatusCode, Registrado) = await webAPI.Registrar(visita);
-            return StatusCode == System.Net.HttpStatusCode.OK && Registrado;
+            return StatusCode == HttpStatusCode.OK && Registrado;
         }
+        public async Task<IEnumerable<Visita>> VisitaActivas()
+        {
+            var (StatusCode, Visitas) = await webAPI.GetVisitasActias();
+            return StatusCode == HttpStatusCode.OK ? Visitas.ToModel(): new List<Visita>();
+        }
+
+        public async Task<bool> RegistrarSalida(Visita visita){
+            var (StatusCode, res) = await webAPI.Salida(visita);
+            return StatusCode== HttpStatusCode.OK && res;
+        }
+
     }
 }

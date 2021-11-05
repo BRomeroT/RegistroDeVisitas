@@ -20,6 +20,9 @@ namespace RegistroVisitas.WebAPI.BL
             return res > 0;
         }
 
+        public async Task<IEnumerable<Model.Visita>> VisitasActivas() =>
+            await dataContext.Visitas.Where(v => !v.FechaHoraDeSalida.HasValue).ToListAsync();
+
         public async Task<bool> Salida(Model.Visita visita)
         {
             var original = dataContext.Visitas.FirstOrDefault(v => v.Id == visita.Id);
