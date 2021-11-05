@@ -35,12 +35,7 @@ namespace RegistroVisitas.WebAPI.Controllers
         public async Task<IEnumerable<SharedAPIModel.Visita>> GetVisitas(DateTime inicio, DateTime? final = null, string casa = "")
         {
             var res = await bl.Buscar(inicio, final, casa);
-            IEnumerable<SharedAPIModel.Visita> Visitas()
-            {
-                foreach (var visita in res)
-                    yield return visita;
-            }
-            return Visitas();
+            return res.ToSharedModel();
         }
     }
 }

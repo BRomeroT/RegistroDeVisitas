@@ -81,6 +81,9 @@ namespace Core.ViewModels
 
         private bool fotoPreviewVisible;
         public bool FotoPreviewVisible { get => fotoPreviewVisible; set => Set(ref fotoPreviewVisible, value); }
+
+        private DateTime fechaInicialFiltro = DateTime.Now;
+        public DateTime FechaInicialFiltro { get => fechaInicialFiltro; set => Set(ref fechaInicialFiltro, value); }
         #endregion
 
         #region Registro
@@ -102,7 +105,11 @@ namespace Core.ViewModels
                 Visita.Entrada = DateTime.Now;
                 Visita.Recepcionista = Recepcionista.Nombre;
                 RegistroExitoso = await registroBL.RegistrarVisita(Visita);
-                if (RegistroExitoso) Visita = new();
+                if (RegistroExitoso)
+                {
+                    visitasActivas.Add(Visita);
+                    Visita = new();
+                }
                 Processing = false;
             }, () => true);
         }
@@ -113,6 +120,8 @@ namespace Core.ViewModels
         private ObservableCollection<Visita> visitasActivas = new();
         public ObservableCollection<Visita> VisitasActivas { get => visitasActivas; set => Set(ref visitasActivas, value); }
 
+        private IEnumerable<Visita> visitasBuscadas;
+        public IEnumerable<Visita> VisitasBuscadas { get => visitasBuscadas; set => Set(ref visitasBuscadas, value); }
 
         private bool salidaExitosa;
         public bool SalidaExitosa { get => salidaExitosa; set => Set(ref salidaExitosa, value); }
@@ -120,46 +129,59 @@ namespace Core.ViewModels
         RelayCommand actualizarVisitasActivasCommand = null;
         public RelayCommand ActualizarVisitasActivasCommand
         {
-            get => actualizarVisitasActivasCommand ??= new (async () =>
-            {
-                Processing = true;
-                VisitasActivas = new(await registroBL.VisitaActivas());
-                Processing = false;
-            }, () => true);
+            get => actualizarVisitasActivasCommand ??= new(async () =>
+           {
+               Processing = true;
+               VisitasActivas = new(await registroBL.VisitaActivas());
+               Processing = false;
+           }, () => true);
         }
 
         RelayCommand<Visita> salidaCommand = null;
         public RelayCommand<Visita> SalidaCommand
         {
-            get => salidaCommand ??= new (async (Visita visita) =>
-            {
-                Processing = true;
-                visita.Salida = DateTime.Now;
-                SalidaExitosa = await registroBL.RegistrarSalida(visita);
-                if (SalidaExitosa) VisitasActivas.Remove(visita);
-                Processing = false;
-            }, (Visita visita) => true);
+            get => salidaCommand ??= new(async (Visita visita) =>
+           {
+               Processing = true;
+               visita.Salida = DateTime.Now;
+               SalidaExitosa = await registroBL.RegistrarSalida(visita);
+               if (SalidaExitosa) VisitasActivas.Remove(visita);
+               Processing = false;
+           }, (Visita visita) => true);
         }
 
         RelayCommand<string> verFotoPreviewCommand = null;
         public RelayCommand<string> VerFotoPreviewCommand
         {
-            get => verFotoPreviewCommand ??= new ((string base64) =>
-            {
-                FotoPreview = base64;
-                FotoPreviewVisible = true;
-            }, (string base64) => true);
+            get => verFotoPreviewCommand ??= new((string base64) =>
+           {
+               FotoPreview = base64;
+               FotoPreviewVisible = true;
+           }, (string base64) => true);
         }
 
         RelayCommand ocultarFotoPreviewCommand = null;
         public RelayCommand OcultarFotoPreviewCommand
         {
-            get => ocultarFotoPreviewCommand ??= new (() =>
-            {
-                FotoPreview = string.Empty;
-                FotoPreviewVisible = false;
-            }, () => true);
+            get => ocultarFotoPreviewCommand ??= new(() =>
+           {
+               FotoPreview = string.Empty;
+               FotoPreviewVisible = false;
+           }, () => true);
         }
+
+        RelayCommand<DateTime?> buscarDelDiaCommand = null;
+        public RelayCommand<DateTime?> BuscarDelDiaCommand
+        {
+            get => buscarDelDiaCommand ??= new(async (DateTime? fecha) =>
+           {
+               Processing = true;
+               if (fecha == null) fecha = FechaInicialFiltro;
+               VisitasBuscadas = await registroBL.VisitasDelDia(fecha);
+               Processing = false;
+           }, (DateTime? fecha) => true);
+        }
+
         #endregion
     }
 }

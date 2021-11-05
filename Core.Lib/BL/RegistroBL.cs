@@ -22,12 +22,21 @@ namespace Core.BL
         public async Task<IEnumerable<Visita>> VisitaActivas()
         {
             var (StatusCode, Visitas) = await webAPI.GetVisitasActias();
-            return StatusCode == HttpStatusCode.OK ? Visitas.ToModel(): new List<Visita>();
+            return StatusCode == HttpStatusCode.OK ? Visitas.ToModel() : new List<Visita>();
         }
 
-        public async Task<bool> RegistrarSalida(Visita visita){
+        public async Task<bool> RegistrarSalida(Visita visita)
+        {
             var (StatusCode, res) = await webAPI.Salida(visita);
-            return StatusCode== HttpStatusCode.OK && res;
+            return StatusCode == HttpStatusCode.OK && res;
+        }
+
+        public async Task<IEnumerable<Visita>> VisitasDelDia(DateTime? fecha = null)
+        {
+            if (fecha == null) fecha = DateTime.Now;
+            var d = fecha.Value;
+            var (StatusCode, Visitas) = await webAPI.Buscar(new DateTime(d.Year, d.Month, d.Day));
+            return (StatusCode == HttpStatusCode.OK) ? Visitas.ToModel() : new List<Visita>();
         }
 
     }
