@@ -36,20 +36,39 @@ namespace RegistroVisitas.WebAPI.BL
             return false;
         }
 
-        public async Task<IEnumerable<Model.Visita>> Buscar(DateTime inicio, DateTime? final = null, string casa = "")
+        private IQueryable<Model.Visita> QueryRangoDeVisitas(DateTime inicio, DateTime? final, string casa = "")
         {
             var fechaInicial = (final != null) ? inicio : new(inicio.Year, inicio.Month, inicio.Day, 0, 0, 0);
             var fechaFinal = (final != null) ? final : new(inicio.Year, inicio.Month, inicio.Day, 23, 59, 59);
             var query = from v in dataContext.Visitas
-                      where v.FechaHoraDeEntrada >= fechaInicial &&
-                      v.FechaHoraDeEntrada <= fechaFinal
-                      select v;
+                        where v.FechaHoraDeEntrada >= fechaInicial &&
+                        v.FechaHoraDeEntrada <= fechaFinal
+                        select v;
             if (!string.IsNullOrEmpty(casa))
                 query = from v in query
-                      where v.CasaId == casa
-                      select v;
+                        where v.CasaId == casa
+                        select v;
+            return query;
+        }
+
+        public async Task<IEnumerable<Model.Visita>> Buscar(DateTime inicio, DateTime? final = null, string casa = "")
+        {
+            var query = QueryRangoDeVisitas(inicio, final, casa);
             var res = await query.ToListAsync();
             return res;
+        }
+
+        public async Task<int> Eliminar(DateTime inicio, DateTime? final = null, string casa = "")
+        {
+            var query = QueryRangoDeVisitas(inicio, final, casa);
+            dataContext.RemoveRange(query);
+            return await dataContext.SaveChangesAsync();
+        }
+
+        public async Task<int> Eliminar()
+        {
+            dataContext.RemoveRange(dataContext.Visitas);
+            return await dataContext.SaveChangesAsync();
         }
     }
 }

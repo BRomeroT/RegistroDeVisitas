@@ -37,5 +37,20 @@ namespace RegistroVisitas.WebAPI.Controllers
             var res = await bl.Buscar(inicio, final, casa);
             return res.ToSharedModel();
         }
+
+        [HttpGet("Eliminar")]
+        public async Task<int> Eliminar(string token, DateTime inicio, DateTime? final = null, string casa = "")
+        {
+            if (token != "Fracc2751") return 0;
+            return await bl.Eliminar(inicio, final, casa);
+        }
+
+        [HttpGet("EliminarTodo")]
+        public async Task<int> Eliminar(string token)
+        {
+            if (token != "Fracc2751") return 0;
+            return await bl.Eliminar();
+        }
+
     }
 }
