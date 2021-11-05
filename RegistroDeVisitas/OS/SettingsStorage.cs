@@ -7,12 +7,16 @@ using Xamarin.Essentials;
 
 namespace RegistroDeVisitas.OS
 {
-    internal class SettingsStorage:ISettingsStorage
+    internal class SettingsStorage : ISettingsStorage
     {
         public T GetValue<T>([CallerMemberName] string propertyName = null) =>
             propertyName switch
             {
+#if DEBUG
                 "WebAPIUrl" => (T)(object)Preferences.Get(propertyName, "https://localhost:44347/"),
+#else
+                "WebAPIUrl" => (T)(object)Preferences.Get(propertyName, "https://registrovisitaswebapi.azurewebsites.net/"),
+#endif
                 //"IntSetting" => (T)(object)Preferences.Get(propertyName, 10),
                 _ => default
             };
