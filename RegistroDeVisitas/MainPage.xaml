@@ -14,51 +14,35 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid x:DataType="vm:MainViewModel" RowDefinitions="Auto,*">
+    <Grid x:DataType="vm:MainViewModel" RowDefinitions="Auto,*, Auto">
         <Grid.BindingContext>
             <vm:MainViewModel x:Name="viewModel"/>
         </Grid.BindingContext>
 
         <!--#Region Header -->
-        <Frame Padding="15" CornerRadius="0" HasShadow="True">
-            <Frame.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="#D969F6" Offset="0.1"/>
-                    <GradientStop Color="#AC4DF2" Offset="1.0"/>
-                </LinearGradientBrush>
-            </Frame.Background>
+        <Grid ColumnDefinitions="Auto,Auto,*,Auto" Padding="15">
 
-            <Grid ColumnDefinitions="Auto,*,2*" RowDefinitions="*,*" >
-                <Image Aspect="AspectFit" Grid.RowSpan="2" Source="{helpers:ImageResource receptionIcon.png}"/>
-                <Picker Grid.Column="1" Grid.RowSpan="2" VerticalOptions="Start" ItemsSource="{Binding Recepcionistas}" SelectedItem="{Binding Recepcionista}" ItemDisplayBinding="{Binding Nombre}"/>
-                <Label Grid.Column="2" Grid.RowSpan="2" VerticalOptions="Start" x:Name="time" HorizontalTextAlignment="End"/>
-                <StackLayout Grid.ColumnSpan="3" Grid.Row="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" >
-                    <StackLayout.Resources>
-                        <ResourceDictionary>
-                            <Style TargetType="ImageButton">
-                                <Setter Property="Aspect" Value="AspectFit"/>
-                                <Setter Property="Margin" Value="10,0"/>
-                                <Setter Property="BorderWidth" Value="0"/>
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                            <Style TargetType="ImageButton" x:Key="Selected">
-                                <Setter Property="BackgroundColor" Value="#B33BCF"/>
-                            </Style>
-                        </ResourceDictionary>
-                    </StackLayout.Resources>
-                    <ImageButton CommandParameter="registro" Source="{helpers:ImageResource checkIn.png}" Style="{StaticResource Selected}" Clicked="TabImageButton_Clicked"/>
-                    <ImageButton CommandParameter="salida" Source="{helpers:ImageResource checkOut.png}" Clicked="TabImageButton_Clicked"/>
-                    <ImageButton CommandParameter="historial" Source="{helpers:ImageResource history.png}" Clicked="TabImageButton_Clicked"/>
-                </StackLayout>
-            </Grid>
-        </Frame>
+            <Frame Margin="-15" Grid.ColumnSpan="4" CornerRadius="0" HasShadow="True">
+                <Frame.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#44A4F5" Offset="0.1"/>
+                        <GradientStop Color="#3C3AF9" Offset="0.5"/>
+                    </LinearGradientBrush>
+                </Frame.Background>
+            </Frame>
+
+            <Image Aspect="AspectFit" Source="{helpers:ImageResource receptionIcon.png}"/>
+            <Picker Grid.Column="1" VerticalOptions="Center" ItemsSource="{Binding Recepcionistas}" SelectedItem="{Binding Recepcionista}" ItemDisplayBinding="{Binding Nombre}"/>
+            <Label Grid.Column="3" VerticalOptions="Center" x:Name="time" HorizontalTextAlignment="End"/>
+
+        </Grid>
         <!--#endregion-->
 
         <!--#region Registro-->
-        <Grid x:Name="registroGrid" Grid.Row="1" RowDefinitions="100,*,*" ColumnDefinitions="5*,*" Padding="10">
+        <Grid x:Name="registroGrid" Grid.Row="1" RowDefinitions="Auto,100,*" ColumnDefinitions="5*,*" Padding="10">
             <!--IsVisible="{Binding Recepcionista, Converter={StaticResource NullToBool}}">-->
 
-            <CollectionView Grid.ColumnSpan="2" ItemsLayout="HorizontalList" SelectionMode="Single" ChildAdded="CallesCollectionView_ChildAdded"
+            <CollectionView Grid.Row="1" Grid.ColumnSpan="2" ItemsLayout="HorizontalList" SelectionMode="Single" ChildAdded="CallesCollectionView_ChildAdded"
                         SelectedItem="{Binding Calle}" ItemsSource="{Binding Calles}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Calle">
@@ -67,7 +51,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <CollectionView Grid.Row="1" SelectionMode="Single" ItemsLayout="VerticalGrid,8"
+            <CollectionView Grid.Row="2" SelectionMode="Single" ItemsLayout="VerticalGrid,8"
                             ItemsSource="{Binding Numeros}" SelectedItem="{Binding Numero}" IsVisible="{Binding Calle,Converter={StaticResource NullToBool}}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="x:Int32">
@@ -80,7 +64,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <CollectionView Grid.Row="1" Grid.Column="1" VerticalOptions="End" SelectionMode="Single" 
+            <CollectionView Grid.Row="2" Grid.Column="1" VerticalOptions="End" SelectionMode="Single" 
                             ItemsSource="{Binding Letras}" SelectedItem="{Binding Letra}" IsVisible="{Binding Numero,Converter={StaticResource NullToBool}}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="x:String">
@@ -93,22 +77,24 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Grid Padding="10" Grid.Row="2" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="*,2*,2*,*" IsVisible="{Binding EsDestinoValido}">
-                <Image x:Name="fotoImage" Grid.RowSpan="3" Source="{Binding Visita.Foto,Converter={StaticResource Base64ToImageSource}}"/>
-                <Button Grid.Row="3" Text="📷" Pressed="TakePictureButton_Pressed"/>
+            <ScrollView Grid.Row="0" Grid.ColumnSpan="2" IsVisible="{Binding EsDestinoValido}">
+                <Grid Padding="10" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="*,2*,2*,*">
+                    <Image x:Name="fotoImage" Grid.RowSpan="3" Source="{Binding Visita.Foto,Converter={StaticResource Base64ToImageSource}}"/>
+                    <Button Grid.Row="3" Text="📷" Pressed="TakePictureButton_Pressed"/>
 
-                <Entry Text="{Binding Visita.NumeroDePase}" Grid.Column="1" Keyboard="Numeric" ReturnType="Next" Placeholder="Tarjetón entregado"/>
-                <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" VerticalOptions="Start" Text="🏷️ Número de tarjetón"/>
-                <Entry Text="{Binding Visita.Placas}" Grid.Column="2" ReturnType="Next" Placeholder="Placas del auto" TextTransform="Uppercase"/>
-                <Label Grid.Row="1" Grid.Column="2" FontSize="Micro" VerticalOptions="Start" Text="🚘 Placas"/>
-                <Entry Text="{Binding Visita.NombreVisita}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" ReturnType="Next" Placeholder="Nombre de la persona que entra" IsTextPredictionEnabled="True"/>
-                <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="Micro" VerticalOptions="Start" Text="🤵 Nombre de la vista"/>
-                <Editor Text="{Binding Visita.Notas}" Grid.Row="4" Grid.ColumnSpan="3" IsSpellCheckEnabled="True" Keyboard="Chat" AutoSize="TextChanges" IsTextPredictionEnabled="True" Placeholder="Solo si ha alguna observación especial" />
-                <Label Grid.Row="5" Grid.ColumnSpan="3" FontSize="Micro" VerticalOptions="Start" Text="📝 Notas"/>
+                    <Entry Text="{Binding Visita.NumeroDePase}" Grid.Column="1" Keyboard="Numeric" ReturnType="Next" Placeholder="Tarjetón entregado"/>
+                    <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" VerticalOptions="Start" Text="🏷️ Número de tarjetón"/>
+                    <Entry Text="{Binding Visita.Placas}" Grid.Column="2" ReturnType="Next" Placeholder="Placas del auto" TextTransform="Uppercase"/>
+                    <Label Grid.Row="1" Grid.Column="2" FontSize="Micro" VerticalOptions="Start" Text="🚘 Placas"/>
+                    <Entry Text="{Binding Visita.NombreVisita}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" ReturnType="Next" Placeholder="Nombre de la persona que entra" IsTextPredictionEnabled="True"/>
+                    <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="Micro" VerticalOptions="Start" Text="🤵 Nombre de la vista"/>
+                    <Editor Text="{Binding Visita.Notas}" Grid.Row="4" Grid.ColumnSpan="3" IsSpellCheckEnabled="True" Keyboard="Chat" AutoSize="TextChanges" IsTextPredictionEnabled="True" Placeholder="Solo si ha alguna observación especial" />
+                    <Label Grid.Row="5" Grid.ColumnSpan="3" FontSize="Micro" VerticalOptions="Start" Text="📝 Notas"/>
 
-                <Button Command="{Binding RegistrarCommand}" Grid.Column="3" Grid.RowSpan="5" CornerRadius="10" Text="✍️ Guardar" BackgroundColor="#09A285" Opacity="0.9"/>
+                    <Button Command="{Binding RegistrarCommand}" Grid.Column="3" Grid.RowSpan="5" CornerRadius="10" Text="✍️ Guardar" BackgroundColor="#09A285" Opacity="0.9"/>
 
-            </Grid>
+                </Grid>
+            </ScrollView>
 
             <Frame BackgroundColor="WhiteSmoke" IsVisible="{Binding Processing}" Grid.RowSpan="3" Grid.ColumnSpan="2" Opacity="0.2" CornerRadius="5"/>
             <ActivityIndicator IsVisible="{Binding Processing}" IsRunning="{Binding Processing}" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
@@ -122,43 +108,40 @@
                 <CollectionView ItemsSource="{Binding VisitasActivas}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Visita">
-                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,*">
-                                <Label FontAttributes="Bold" FontSize="Medium" VerticalOptions="End">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="🏷️ "/>
-                                            <Span Text="{Binding NumeroDePase}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                                <Label Grid.Row="1" FontAttributes="Bold" VerticalOptions="Start">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="🚘 "/>
-                                            <Span Text="{Binding Placas}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
+                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" Margin="0,10">
+                                <StackLayout VerticalOptions="End">
+                                    <Label Text="{Binding NumeroDePase,StringFormat='🏷️ {0}'}" FontAttributes="Bold" FontSize="Medium"/>
+                                    <Label Text="{Binding Placas,StringFormat='🚘 {0}'}" FontAttributes="Bold" VerticalOptions="Start"/>
+                                </StackLayout>
 
-                                <ImageButton WidthRequest="150" CornerRadius="10" Grid.Row="2" Aspect="AspectFit" Source="{Binding Foto,Converter={StaticResource Base64ToImageSource}}" 
+                                <ImageButton WidthRequest="80" VerticalOptions="Start" CornerRadius="10" Grid.Row="1" Aspect="AspectFit" Source="{Binding Foto,Converter={StaticResource Base64ToImageSource}}" 
                                              Command="{Binding Source={x:Reference viewModel},Path=VerFotoPreviewCommand}" CommandParameter="{Binding Foto}"/>
 
-                                <Label Grid.Column="1" VerticalOptions="End">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="🤵 "/>
-                                            <Span Text="{Binding NombreVisita}" FontAttributes="Bold"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                                <Label Text="{Binding Entrada}" HorizontalOptions="End" VerticalOptions="End" Grid.Column="2"/>
-                                <Grid ColumnDefinitions="Auto,*" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+                                <StackLayout Grid.Column="1" VerticalOptions="End" Margin="5">
+                                    <Label Text="{Binding NombreVisita,StringFormat='🤵 {0}'}" FontAttributes="Bold"/>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="🏡 "/>
+                                                <Span Text="{Binding CasaCodigo}"/>
+                                                <Span Text=" - "/>
+                                                <Span Text="{Binding Recepcionista}" FontSize="Micro" FontAttributes="Italic"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Vertical" HorizontalOptions="End" VerticalOptions="End" Grid.Column="2">
+                                    <Label Text="{Binding Entrada,StringFormat='{0:dd/MM/yyyy}'}" Opacity="0.6" FontSize="Micro"/>
+                                    <Label Text="{Binding Entrada,StringFormat='{0:HH:MM}'}" HorizontalOptions="End"/>
+                                </StackLayout>
+
+                                <Grid ColumnDefinitions="Auto,*" Grid.Row="1" Grid.Column="1" Margin="5,0">
                                     <Label Text="📝"/>
                                     <Editor Text="{Binding Notas}" Grid.Column="1" IsSpellCheckEnabled="True" Keyboard="Chat" AutoSize="TextChanges" IsTextPredictionEnabled="True" Placeholder="Solo si ha alguna observación especial" />
                                 </Grid>
-                                <Label Text="{Binding Recepcionista}" Grid.Column="2" Margin="10,0" Grid.Row="1" FontSize="Micro" VerticalOptions="Start" HorizontalOptions="End" FontAttributes="Italic" Opacity="0.7"/>
 
-                                <Button Command="{Binding Source={x:Reference viewModel}, Path=SalidaCommand}" CommandParameter="{Binding}" Grid.Column="2" Grid.Row="2" CornerRadius="10" Text="✍️ Salida" BackgroundColor="#09A285" Opacity="0.9"/>
+                                <Button Command="{Binding Source={x:Reference viewModel}, Path=SalidaCommand}" CommandParameter="{Binding}" Grid.Column="2" Grid.Row="1" CornerRadius="10" Text="✍️ Salida" BackgroundColor="#09A285" Opacity="0.9"/>
 
                             </Grid>
                         </DataTemplate>
@@ -172,44 +155,36 @@
         <Grid x:Name="historialGrid" Grid.Row="1" RowDefinitions="Auto,*" ColumnDefinitions="*,*" IsVisible="False" Padding="10">
             <DatePicker Date="{Binding FechaInicialFiltro}" HorizontalOptions="End"/>
             <Button Command="{Binding BuscarDelDiaCommand}" Grid.Column="1" HorizontalOptions="Start" CornerRadius="10" Text="🔍 Buscar" BackgroundColor="#3C71FA" Opacity="0.9"/>
-            
+
             <CollectionView ItemsSource="{Binding VisitasBuscadas}" Grid.Row="1" Grid.ColumnSpan="2">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Visita">
-                        <Grid ColumnDefinitions="Auto,*,*,Auto" RowDefinitions="*,*">
-                            <Label FontAttributes="Bold" VerticalOptions="End">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="🏷️ "/>
-                                        <Span Text="{Binding NumeroDePase}"/>
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label Grid.Row="1" FontAttributes="Bold" VerticalOptions="Start">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="🚘 "/>
-                                        <Span Text="{Binding Placas}"/>
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label Grid.Column="1" VerticalOptions="End">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="🤵 "/>
-                                        <Span Text="{Binding NombreVisita}" FontAttributes="Bold"/>
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label Text="{Binding Entrada}" HorizontalOptions="End" VerticalOptions="End" Grid.Column="2"/>
-                            <Grid ColumnDefinitions="Auto,*" Grid.Row="1" Grid.Column="1">
-                                <Label Text="📝"/>
-                                <Label Text="{Binding Notas}" Grid.Column="1" />
-                            </Grid>
-                            <Label Text="{Binding Recepcionista}" Grid.Column="2" Grid.Row="1" FontSize="Micro" VerticalOptions="Start" HorizontalOptions="End" FontAttributes="Italic" Opacity="0.7"/>
+                        <Grid ColumnDefinitions="Auto,*,Auto" Padding="5">
 
-                            <ImageButton WidthRequest="150" CornerRadius="10" Grid.RowSpan="2" Grid.Column="3" Aspect="AspectFit" Source="{Binding Foto,Converter={StaticResource Base64ToImageSource}}" 
+                            <ImageButton WidthRequest="80" VerticalOptions="Start" CornerRadius="10" Aspect="AspectFit" Source="{Binding Foto,Converter={StaticResource Base64ToImageSource}}" 
                                              Command="{Binding Source={x:Reference viewModel},Path=VerFotoPreviewCommand}" CommandParameter="{Binding Foto}"/>
+
+                            <StackLayout Grid.Column="1" VerticalOptions="Start" Margin="5,0">
+                                <Label Text="{Binding NombreVisita, StringFormat='🤵 {0}'}" FontAttributes="Bold"/>
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="🏡 "/>
+                                            <Span Text="{Binding CasaCodigo}"/>
+                                            <Span Text=" - "/>
+                                            <Span Text="{Binding Recepcionista}" FontSize="Micro" FontAttributes="Italic"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Text="{Binding Notas, StringFormat='📝 {0}'}"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="2" HorizontalOptions="End" VerticalOptions="End">
+                                <Label Text="{Binding NumeroDePase,StringFormat='🏷️ {0}'}" HorizontalOptions="End"/>
+                                <Label Text="{Binding Placas,StringFormat='🚘 {0}'}" HorizontalOptions="End"/>
+                                <Label Text="{Binding Entrada,StringFormat='{0:dd/MM/yyyy HH:mm}'}" HorizontalOptions="End"/>
+                                <Label Text="{Binding Salida,StringFormat='{0:dd/MM/yyyy HH:mm}'}" Opacity="0.7" HorizontalOptions="End"/>
+                            </StackLayout>
 
                         </Grid>
                     </DataTemplate>
@@ -221,9 +196,45 @@
         </Grid>
         <!--#endregion-->
 
-        <Frame BackgroundColor="WhiteSmoke" IsVisible="{Binding FotoPreviewVisible}" Grid.Row="1" Opacity="0.2" CornerRadius="5"/>
+        <!--#region Footer-->
+        <Grid Grid.Row="2" RowDefinitions="*,Auto">
+            <BoxView Grid.Row="1" HeightRequest="20">
+                <BoxView.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#44A4F5" Offset="0.1"/>
+                        <GradientStop Color="#3C3AF9" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </BoxView.Background>
+            </BoxView>
+            <StackLayout Grid.RowSpan="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="ImageButton">
+                            <Setter Property="Aspect" Value="AspectFit"/>
+                            <Setter Property="Margin" Value="10,0"/>
+                            <Setter Property="BorderWidth" Value="0"/>
+                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="HeightRequest" Value="40"/>
+                            <Setter Property="WidthRequest" Value="40"/>
+                            <Setter Property="Margin" Value="5"/>
+                        </Style>
+                        <Style TargetType="ImageButton" x:Key="Selected">
+                            <Setter Property="BorderWidth" Value="1"/>
+                            <Setter Property="BorderColor" Value="#3C3AF9"/>
+                        </Style>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <ImageButton CommandParameter="registro" Source="{helpers:ImageResource checkIn.png}" Clicked="TabImageButton_Clicked"/>
+                <ImageButton CommandParameter="salida" Source="{helpers:ImageResource checkOut.png}" Clicked="TabImageButton_Clicked"/>
+                <ImageButton CommandParameter="historial" Source="{helpers:ImageResource history.png}" Clicked="TabImageButton_Clicked"/>
+            </StackLayout>
+        </Grid>
+        <!--#endregion-->
 
+        <!--#region Preview-->
+        <Frame BackgroundColor="WhiteSmoke" IsVisible="{Binding FotoPreviewVisible}" Grid.Row="1" Opacity="0.2" CornerRadius="5"/>
         <ImageButton Source="{Binding FotoPreview,Converter={x:StaticResource Base64ToImageSource}}" Margin="15" CornerRadius="10" Grid.Row="1" IsVisible="{Binding FotoPreviewVisible}" Command="{Binding OcultarFotoPreviewCommand}"/>
+        <!--#endregion-->
     </Grid>
 
 </ContentPage>
