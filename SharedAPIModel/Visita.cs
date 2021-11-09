@@ -14,5 +14,6 @@ namespace SharedAPIModel
         public string Notas { get; set; }
         public string Foto { get; set; }
         public DateTime? FechaHoraDeSalida { get; set; }
+        public string RecepcionistaDeSalida { get; set; }
     }
 }

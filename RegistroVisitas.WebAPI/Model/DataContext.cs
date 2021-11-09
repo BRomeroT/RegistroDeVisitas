@@ -10,5 +10,7 @@ namespace RegistroVisitas.WebAPI.Model
         }
 
         public DbSet<Visita> Visitas { get; set; }
+        public DbSet<Recepcionista> Recepcionistas { get; set; }
+        public DbSet<Sesion> Sesiones { get; set; }
     }
 }

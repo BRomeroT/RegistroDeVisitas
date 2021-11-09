@@ -12,9 +12,10 @@
                 FechaHoraDeEntrada = v.FechaHoraDeEntrada,
                 Visitante = v.Visitante,
                 Notas = v.Notas,
-                Placas= v.Placas,
+                Placas = v.Placas,
                 Foto = v.Foto,
-                FechaHoraDeSalida = v.FechaHoraDeSalida
+                FechaHoraDeSalida = v.FechaHoraDeSalida,
+                RecepcionistaDeSalida = v.RecepcionistaDeSalida
             };
     }
 }
@@ -35,14 +36,15 @@ namespace RegistroVisitas.WebAPI.Model
                 Notas = v.Notas,
                 Placas = v.Placas,
                 Foto = v.Foto,
-                FechaHoraDeSalida = v.FechaHoraDeSalida
+                FechaHoraDeSalida = v.FechaHoraDeSalida,
+                RecepcionistaDeSalida = v.RecepcionistaDeSalida
             };
     }
 }
 
 namespace System.Collections.Generic
 {
-    public static class CollectionExtensions
+    public static partial class CollectionExtensions
     {
         public static IEnumerable<RegistroVisitas.WebAPI.Model.Visita> ToModel(this IEnumerable<SharedAPIModel.Visita> visitas)
         {

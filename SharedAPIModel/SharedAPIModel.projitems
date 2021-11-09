@@ -10,6 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Credential.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Identificacion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Recepcionista.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sesion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Visita.cs" />
   </ItemGroup>
 </Project>
