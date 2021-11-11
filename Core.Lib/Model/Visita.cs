@@ -38,5 +38,8 @@ namespace Core.Model
 
         private DateTime? salida;
         public DateTime? Salida { get => salida; set => Set(ref salida, value); }
+
+        private string recepcionistaSalida;
+        public string RecepcionistaSalida { get => recepcionistaSalida; set => Set(ref recepcionistaSalida, value); }
     }
 }

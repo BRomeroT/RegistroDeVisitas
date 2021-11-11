@@ -26,5 +26,9 @@ namespace RegistroVisitas.WebAPI.Controllers
                 res = await bl.RegistrarSesion(identificacion.Id, identificacion.Fecha);
             return res;
         }
+
+        [HttpGet("Recepcionistas")]
+        public async Task<IEnumerable<SharedAPIModel.Recepcionista>> GetRecepcionistas() =>
+            (await bl.GetRecepcionistasAsync()).ToSharedModel();
     }
 }

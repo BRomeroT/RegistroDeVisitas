@@ -38,16 +38,6 @@ namespace Core.ViewModels
         private Recepcionista recepcionista;
         public Recepcionista Recepcionista { get => recepcionista; set => Set(ref recepcionista, value); }
 
-        public List<Recepcionista> Recepcionistas
-        {
-            get
-            {
-                var recepcionistas = seleccionesBL.Recepcionistas;
-                Recepcionista = recepcionistas.FirstOrDefault();
-                return recepcionistas;
-            }
-        }
-
         private Calle calle;
         public Calle Calle
         {

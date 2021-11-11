@@ -2,7 +2,7 @@
 {
     public partial class Visita
     {
-        public static implicit operator Core.Model.Visita(Visita v)=>
+        public static implicit operator Core.Model.Visita(Visita v) =>
             new()
             {
                 Id = v.Id,
@@ -14,7 +14,8 @@
                 Notas = v.Notas,
                 Placas = v.Placas,
                 Foto = v.Foto,
-                Salida = v.FechaHoraDeSalida
+                Salida = v.FechaHoraDeSalida,
+                RecepcionistaSalida = v.RecepcionistaDeSalida
             };
     }
 }
@@ -35,14 +36,15 @@ namespace Core.Model
                 Notas = v.Notas,
                 Placas = v.Placas,
                 Foto = v.Foto,
-                FechaHoraDeSalida = v.Salida
+                FechaHoraDeSalida = v.Salida,
+                RecepcionistaDeSalida = v.RecepcionistaSalida
             };
     }
 }
 
 namespace System.Collections.Generic
 {
-    public static class CollectionExtensions
+    public static partial class CollectionExtensions
     {
         public static IEnumerable<Core.Model.Visita> ToModel(this IEnumerable<SharedAPIModel.Visita> visitas)
         {

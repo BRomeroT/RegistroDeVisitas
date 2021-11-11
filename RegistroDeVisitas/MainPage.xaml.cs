@@ -38,11 +38,27 @@ namespace RegistroDeVisitas
                         break;
                 }
             };
+
+            viewModelLogin.PropertyChanged += (s, e) =>
+              {
+                  switch (e.PropertyName)
+                  {
+                      case nameof(viewModelLogin.EsValido):
+                          if (!viewModelLogin.EsValido)
+                              DisplayAlert("Acceso negado", "Código inválido", "Reintentar");
+                          else
+                              viewModel.Recepcionista = viewModelLogin.Recepcionista;
+                          break;
+                      default:
+                          break;
+                  }
+              };
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            //await viewModelLogin.LoadCommand.ExecuteAsync();
             await viewModel.ActualizarVisitasActivasCommand.ExecuteAsync();
         }
 

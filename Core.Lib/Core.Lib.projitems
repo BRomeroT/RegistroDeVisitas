@@ -11,15 +11,20 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApiClient\RegistroAPI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApiClient\SecurityApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApiClient\SesionesAPI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApiClient\WebApiClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL\RegistroBL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL\SecurityBL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BL\SeleccionesBL.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BL\SesionesBL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\RecepcionistaConversion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\SesionConversion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\VisitaConversion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Calle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\RepositorioDeVisitas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Sesion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="..\Core.Lib\Model\Casa.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Recepcionista.cs" />

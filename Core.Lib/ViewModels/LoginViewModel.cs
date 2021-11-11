@@ -1,49 +1,49 @@
 ﻿using Core.BL;
 using Core.Lib.OS;
+using Core.Model;
 using Sysne.Core.MVVM;
 using Sysne.Core.MVVM.Patterns;
 using Sysne.Core.OS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Core.ViewModels
 {
-    public class LoginViewModel : ViewModelWithBL<SecurityBL> //: ViewModelBase
+    public class LoginViewModel : ViewModelWithBL<SesionesBL>
     {
-        //readonly SecurityBL bl;
-        //public LoginViewModel() => bl = new SecurityBL();
-
-        private string user;
-        [Required(ErrorMessage = "We need your user")]
-        public string User { get => user; set => Set(ref user, value); }
-
-        private string password;
-        [Required]
-        public string Password { get => password; set => Set(ref password, value); }
-
-        private string message;
-        public string Messagge { get => message; set => Set(ref message, value); }
-
-
-        RelayCommand loginCommand = null;
-        public RelayCommand LoginCommand
+        public LoginViewModel() : base()
         {
-            get => loginCommand ??= new RelayCommand(async () =>
+            Task.Run(async () =>
             {
-                var (isValid, name) = await bl.Login(User, Password);
-                if (isValid)
-                {
-                    Messagge = name;
-                    await DependencyService.Get<INavigationService>().NavigateTo(PagesKeys.Crud);
-                }
-                else
-                {
-                    Messagge = "Access denied";
-                }
-            }, () => Validate(this, false)
-            , dependencies: (this, new[] { nameof(User), nameof(Password) }));
+                Recepcionistas = new(await bl.Recepcionistas());
+                Recepcionista = Recepcionistas.FirstOrDefault();
+            });
+        }
+
+        private bool esValido;
+        public bool EsValido { get => esValido; set => Set(ref esValido, value); }
+        private Recepcionista recepcionista;
+        public Recepcionista Recepcionista { get => recepcionista; set => Set(ref recepcionista, value); }
+
+        private List<Recepcionista> recepcionistas;
+        public List<Recepcionista> Recepcionistas { get => recepcionistas; set => Set(ref recepcionistas, value); }
+
+        private string codigo;
+        [Required]
+        public string Codigo { get => codigo; set => Set(ref codigo, value); }
+
+        RelayCommand autentificarCommand = null;
+        public RelayCommand AutentificarCommand
+        {
+            get => autentificarCommand ??= new(async () =>
+           {
+               EsValido = await bl.Iniciar(Recepcionista.Id, Codigo);
+           }, () => Validate(this, false)
+            , dependencies: (this, new[] { nameof(Codigo) }));
         }
     }
 }

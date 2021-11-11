@@ -33,18 +33,19 @@ namespace Core.Model
             return res;
         }
 
-        public List<Recepcionista> GetRecepcionistas() => new()
-        {
-            new(1, "Benjamín"),
-            new(2, "David"),
-            new(3, "Gustavo"),
-            new(4, "Mario"),
-            new(5, "Martha"),
-            new(5, "Montse"),
-            new(6, "Pedro"),
-            new(7, "--Otro--")
-        }
-;
+        public List<Recepcionista> GetRecepcionistas() => throw new NotImplementedException();
+        //    new()
+        //{
+        //    new(1, "Benjamín"),
+        //    new(2, "David"),
+        //    new(3, "Gustavo"),
+        //    new(4, "Mario"),
+        //    new(5, "Martha"),
+        //    new(5, "Montse"),
+        //    new(6, "Pedro"),
+        //    new(7, "--Otro--")
+        //}
+
         public List<Visita> GetVisitas(DateTime? fecha = null)
         {
             throw new NotImplementedException();
