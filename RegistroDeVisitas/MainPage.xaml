@@ -17,6 +17,7 @@
 
     <Grid RowDefinitions="Auto,*">
 
+        <!--#region Login -->
         <Grid ColumnDefinitions="*,*,*">
             <StackLayout Grid.Column="1" VerticalOptions="Center" Padding="10" x:DataType="vm:LoginViewModel" IsVisible="{Binding EsValido,Converter={StaticResource BoolInvert}}">
                 <StackLayout.BindingContext>
@@ -32,6 +33,7 @@
                 <Button Command="{Binding AutentificarCommand}" CornerRadius="10" Text="✔️ Entrar" BackgroundColor="#09A285"/>
             </StackLayout>
         </Grid>
+        <!--#endregion-->
         
         <Grid Grid.Row="1" x:DataType="vm:MainViewModel" RowDefinitions="Auto,*, Auto" IsVisible="{Binding Source={Reference viewModelLogin}, Path=EsValido}">
             <Grid.BindingContext>
@@ -190,8 +192,6 @@
                                             <FormattedString>
                                                 <Span Text="🏡 "/>
                                                 <Span Text="{Binding CasaCodigo}"/>
-                                                <Span Text=" - "/>
-                                                <Span Text="{Binding Recepcionista}" FontSize="Micro" FontAttributes="Italic"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -201,8 +201,24 @@
                                 <StackLayout Grid.Column="2" HorizontalOptions="End" VerticalOptions="End">
                                     <Label Text="{Binding NumeroDePase,StringFormat='🏷️ {0}'}" HorizontalOptions="End"/>
                                     <Label Text="{Binding Placas,StringFormat='🚘 {0}'}" HorizontalOptions="End"/>
-                                    <Label Text="{Binding Entrada,StringFormat='{0:dd/MM/yyyy HH:mm}'}" HorizontalOptions="End"/>
-                                    <Label Text="{Binding Salida,StringFormat='{0:dd/MM/yyyy HH:mm}'}" Opacity="0.7" HorizontalOptions="End"/>
+                                    <Label HorizontalOptions="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Entrada,StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{Binding Recepcionista}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Opacity="0.7" HorizontalOptions="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Salida,StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{Binding RecepcionistaSalida}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
                                 </StackLayout>
 
                             </Grid>

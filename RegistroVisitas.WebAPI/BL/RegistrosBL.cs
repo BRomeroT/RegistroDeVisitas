@@ -30,6 +30,7 @@ namespace RegistroVisitas.WebAPI.BL
             {
                 original.FechaHoraDeSalida = visita.FechaHoraDeSalida;
                 original.Notas = visita.Notas;
+                original.RecepcionistaDeSalida = visita.RecepcionistaDeSalida;
                 var res = await dataContext.SaveChangesAsync();
                 return res > 0;
             }

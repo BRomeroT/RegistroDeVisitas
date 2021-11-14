@@ -29,7 +29,7 @@ namespace RegistroVisitas.WebAPI.Controllers
 
         [HttpPost("Salida")]
         public async Task<bool> Salida(SharedAPIModel.Visita visita) =>
-            await bl.Salida(new() { Id = visita.Id, FechaHoraDeSalida = visita.FechaHoraDeSalida, Notas = visita.Notas });
+            await bl.Salida(new() { Id = visita.Id, FechaHoraDeSalida = visita.FechaHoraDeSalida, RecepcionistaDeSalida = visita.RecepcionistaDeSalida, Notas = visita.Notas });
 
         [HttpGet("Buscar")]
         public async Task<IEnumerable<SharedAPIModel.Visita>> GetVisitas(DateTime inicio, DateTime? final = null, string casa = "")

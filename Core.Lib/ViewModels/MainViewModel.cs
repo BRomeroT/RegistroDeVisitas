@@ -94,13 +94,18 @@ namespace Core.ViewModels
                 Visita.CasaCodigo = $"{Calle.Codigo}{Numero:00}{Letra}";
                 Visita.Entrada = DateTime.Now;
                 Visita.Recepcionista = Recepcionista.Nombre;
-                RegistroExitoso = await registroBL.RegistrarVisita(Visita);
-                if (RegistroExitoso)
-                {
-                    visitasActivas.Add(Visita);
-                    Visita = new();
-                }
+                //Para que de la "sensación" de que se registró rápido
+                visitasActivas.Add(Visita);
+                var visitaRegistrada = Visita;
                 Processing = false;
+                await registroBL.RegistrarVisita(visitaRegistrada);
+                Visita = new();
+                //RegistroExitoso = await registroBL.RegistrarVisita(Visita);
+                //if (RegistroExitoso)
+                //{
+                //    visitasActivas.Add(Visita);
+                //    Visita = new();
+                //}
             }, () => true);
         }
         #endregion
@@ -134,6 +139,7 @@ namespace Core.ViewModels
            {
                Processing = true;
                visita.Salida = DateTime.Now;
+               visita.RecepcionistaSalida = Recepcionista.Nombre;
                SalidaExitosa = await registroBL.RegistrarSalida(visita);
                if (SalidaExitosa) VisitasActivas.Remove(visita);
                Processing = false;

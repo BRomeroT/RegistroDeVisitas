@@ -45,7 +45,7 @@ namespace RegistroDeVisitas
                   {
                       case nameof(viewModelLogin.EsValido):
                           if (!viewModelLogin.EsValido)
-                              DisplayAlert("Acceso negado", "Código inválido", "Reintentar");
+                              DisplayAlert("⛔ Acceso negado", "🔑 Código inválido", "Reintentar");
                           else
                               viewModel.Recepcionista = viewModelLogin.Recepcionista;
                           break;
