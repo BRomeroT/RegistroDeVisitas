@@ -34,7 +34,7 @@
             </StackLayout>
         </Grid>
         <!--#endregion-->
-        
+
         <Grid Grid.Row="1" x:DataType="vm:MainViewModel" RowDefinitions="Auto,*, Auto" IsVisible="{Binding Source={Reference viewModelLogin}, Path=EsValido}">
             <Grid.BindingContext>
                 <vm:MainViewModel x:Name="viewModel"/>
@@ -231,6 +231,26 @@
             </Grid>
             <!--#endregion-->
 
+            <!--#region Sesiones Historial-->
+            <Grid x:Name="sesionesGrid" Grid.Row="1" RowDefinitions="Auto,*" ColumnDefinitions="0.5*,*,*,0.5*" IsVisible="False" Padding="10">
+
+                <DatePicker Grid.Column="1" Format="MMMM/yyyy" Date="{Binding FechaSesiones}" HorizontalOptions="End" VerticalOptions="Start"/>
+                <Button Grid.Column="2" Command="{Binding BuscarSesionesCommand}" HorizontalOptions="Start" VerticalOptions="Start" CornerRadius="10" Text="🔍 Buscar" BackgroundColor="#3C71FA" Opacity="0.9"/>
+
+                <CollectionView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Center" ItemsSource="{Binding SesionesEncontradas}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Sesion">
+                            <StackLayout Padding="10" HorizontalOptions="Center">
+                                <Label Text="{Binding Recepcionista}" Margin="5,0"/>
+                                <Label Text="{Binding Fecha,StringFormat='📅 {0:dd}'}" HorizontalOptions="End"/>
+                                <Label Text="{Binding Fecha,StringFormat='⏱️ {0:T}'}" HorizontalOptions="End"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+            <!--#endregion-->
+
             <!--#region Footer-->
             <Grid Grid.Row="2" RowDefinitions="*,Auto">
                 <BoxView Grid.Row="1" HeightRequest="20">
@@ -262,6 +282,7 @@
                     <ImageButton CommandParameter="registro" Source="{helpers:ImageResource checkIn.png}" Clicked="TabImageButton_Clicked"/>
                     <ImageButton CommandParameter="salida" Source="{helpers:ImageResource checkOut.png}" Clicked="TabImageButton_Clicked"/>
                     <ImageButton CommandParameter="historial" Source="{helpers:ImageResource history.png}" Clicked="TabImageButton_Clicked"/>
+                    <ImageButton CommandParameter="sesiones" Source="{helpers:ImageResource sessions.png}" Clicked="TabImageButton_Clicked"/>
                 </StackLayout>
             </Grid>
             <!--#endregion-->

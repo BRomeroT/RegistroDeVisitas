@@ -16,6 +16,7 @@
     <None Remove="Images\checkOut.png" />
     <None Remove="Images\history.png" />
     <None Remove="Images\receptionIcon.png" />
+    <None Remove="Images\sessions.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
     <EmbeddedResource Include="Images\checkOut.png" />
     <EmbeddedResource Include="Images\greenTile.png" />
     <EmbeddedResource Include="Images\history.png" />
+    <EmbeddedResource Include="Images\sessions.png" />
     <EmbeddedResource Include="Images\orangeTile.png" />
     <EmbeddedResource Include="Images\pinkTile.png" />
     <EmbeddedResource Include="Images\purpleTile.png" />

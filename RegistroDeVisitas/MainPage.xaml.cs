@@ -134,16 +134,25 @@ namespace RegistroDeVisitas
                     registroGrid.IsVisible = true;
                     salidaGrid.IsVisible = false;
                     historialGrid.IsVisible = false;
+                    sesionesGrid.IsVisible = false;
                     break;
                 case "salida":
                     registroGrid.IsVisible = false;
                     salidaGrid.IsVisible = true;
                     historialGrid.IsVisible = false;
+                    sesionesGrid.IsVisible = false;
                     break;
                 case "historial":
                     registroGrid.IsVisible = false;
                     salidaGrid.IsVisible = false;
                     historialGrid.IsVisible = true;
+                    sesionesGrid.IsVisible = false;
+                    break;
+                case "sesiones":
+                    registroGrid.IsVisible = false;
+                    salidaGrid.IsVisible = false;
+                    historialGrid.IsVisible = false;
+                    sesionesGrid.IsVisible = true;
                     break;
                 default: break;
             }

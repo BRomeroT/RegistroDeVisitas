@@ -15,6 +15,7 @@ namespace Core.ViewModels
     {
         private readonly SeleccionesBL seleccionesBL = new();
         private readonly RegistroBL registroBL = new();
+        private readonly SesionesBL sesionesBL = new();
 
         public MainViewModel()
         {
@@ -176,6 +177,28 @@ namespace Core.ViewModels
                VisitasBuscadas = await registroBL.VisitasDelDia(fecha);
                Processing = false;
            }, (DateTime? fecha) => true);
+        }
+
+        #endregion
+
+        #region Sesiones
+
+        private DateTime fechaSesiones = DateTime.Now;
+        public DateTime FechaSesiones { get => fechaSesiones; set => Set(ref fechaSesiones, value); }
+
+
+        private IEnumerable<Sesion> sesionesEncontradas;
+        public IEnumerable<Sesion> SesionesEncontradas { get => sesionesEncontradas; set => Set(ref sesionesEncontradas, value); }
+
+        RelayCommand buscarSesionesCommand = null;
+        public RelayCommand BuscarSesionesCommand
+        {
+            get => buscarSesionesCommand ??= new (async () =>
+            {
+                Processing= true;
+                SesionesEncontradas = await sesionesBL.GetSesionsDe(FechaSesiones.Year,FechaSesiones.Month);
+                Processing = false;
+            }, () => true);
         }
 
         #endregion
