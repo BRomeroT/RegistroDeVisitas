@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{5FAE528A-C3A7-47EC-8B6F-2B10F3AEE3E4}</ProjectGuid>
+    <ProjectGuid>{7DD62956-5762-47BC-90B8-F32E1146E900}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RegistroDeVisitas.UWP</RootNamespace>
-    <AssemblyName>RegistroDeVisitas.UWP</AssemblyName>
+    <RootNamespace>Rondinero.UWP</RootNamespace>
+    <AssemblyName>Rondinero.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.22000.0</TargetPlatformVersion>
@@ -17,16 +17,8 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <PackageCertificateKeyFile>RegistroDeVisitas.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxPackageDir>C:\Apps\RegistroDeVisitas\Deploy\UWP\</AppxPackageDir>
-    <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundle>Always</AppxBundle>
-    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -152,21 +144,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.7.0</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.13" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RegistroDeVisitas\RegistroDeVisitas.csproj">
-      <Project>{548B4A3A-5F1D-4F60-9CA3-12759B08C4A3}</Project>
-      <Name>RegistroDeVisitas</Name>
+    <ProjectReference Include="..\Rondinero\Rondinero.csproj">
+      <Project>{607F4F66-3525-4A4F-9FAA-78EF37C187B1}</Project>
+      <Name>Rondinero</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="RegistroDeVisitas.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

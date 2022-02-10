@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2A801210-262D-492D-B93E-659722182DF9}</ProjectGuid>
+    <ProjectGuid>{EED6C20B-6E61-4EF2-AA8A-EC56459BFA7C}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>RegistroDeVisitas.iOS</RootNamespace>
+    <RootNamespace>Rondinero.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>RegistroDeVisitas.iOS</AssemblyName>
+    <AssemblyName>Rondinero.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-    <ProvisioningType>manual</ProvisioningType>
+    <ProvisioningType>automatic</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,8 +27,6 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignKey>Apple Development: Benjamin Romero (5XE47RU975)</CodesignKey>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -131,9 +129,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\RegistroDeVisitas\RegistroDeVisitas.csproj">
-      <Project>{548B4A3A-5F1D-4F60-9CA3-12759B08C4A3}</Project>
-      <Name>RegistroDeVisitas</Name>
+    <ProjectReference Include="..\Rondinero\Rondinero.csproj">
+      <Project>{607F4F66-3525-4A4F-9FAA-78EF37C187B1}</Project>
+      <Name>Rondinero</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -23,10 +23,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\VisitaConversion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Calle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Casa.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\RepositorioDeVisitas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Sesion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
-    <Compile Include="..\Core.Lib\Model\Casa.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Recepcionista.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Visita.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OS\INavigationService.cs" />
