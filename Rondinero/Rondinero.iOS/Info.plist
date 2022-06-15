@@ -34,5 +34,11 @@
     <string>Rondinero</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>¿Se puede usar siempre la ubicación?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Necesitamos la ubicación mientras hace el recorrido</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>¿Podemos usar la ubicación?</string>
 </dict>
 </plist>

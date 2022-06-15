@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -56,8 +57,11 @@ namespace Rondinero.UWP
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
-                Xamarin.Forms.Forms.Init(e);
 
+                var assembliesToInclude = new[] { typeof(Xamarin.Forms.Maps.UWP.MapRenderer).GetTypeInfo().Assembly };
+                Xamarin.Forms.Forms.Init(e, assembliesToInclude);
+                Xamarin.FormsMaps.Init("E6oqysOOSOepSMw~Ahbt7XQKO5i3qWoibxW6F8f4PK9z1kYm_LXaBCaMPgqwQLqipCQX3kVp2E_J08PY");
+                Windows.Services.Maps.MapService.ServiceToken = "E6oqysOOSOepSMw~Ahbt7XQKO5i3qWoibxW6F8f4PK9z1kYm_LXaBCaMPgqwQLqipCQX3kVp2E_J08PY";
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
