@@ -17,6 +17,12 @@
 		<PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="registros.db">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 	<Import Project="..\SharedAPIModel\SharedAPIModel.projitems" Label="Shared" />
 
 </Project>

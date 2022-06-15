@@ -1,2 +1,0 @@
-Alias: RegistroDeVistias
-Password: Fracc2715
