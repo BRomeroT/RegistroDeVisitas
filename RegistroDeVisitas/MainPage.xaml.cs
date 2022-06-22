@@ -58,7 +58,7 @@ namespace RegistroDeVisitas
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            //await viewModelLogin.LoadCommand.ExecuteAsync();
+            await viewModelLogin.CargarRecepcionistasCommand.ExecuteAsync();
             await viewModel.ActualizarVisitasActivasCommand.ExecuteAsync();
         }
 

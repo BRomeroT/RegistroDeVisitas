@@ -12,11 +12,11 @@ namespace RegistroDeVisitas.OS
         public T GetValue<T>([CallerMemberName] string propertyName = null) =>
             propertyName switch
             {
-#if DEBUG
-                "WebAPIUrl" => (T)(object)Preferences.Get(propertyName, "https://localhost:44347/"),
-#else
+//#if DEBUG
+//                "WebAPIUrl" => (T)(object)Preferences.Get(propertyName, "https://localhost:44347/"),
+//#else
                 "WebAPIUrl" => (T)(object)Preferences.Get(propertyName, "https://registrovisitaswebapi.azurewebsites.net/"),
-#endif
+//#endif
                 //"IntSetting" => (T)(object)Preferences.Get(propertyName, 10),
                 _ => default
             };

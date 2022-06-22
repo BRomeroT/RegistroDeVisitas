@@ -19,11 +19,10 @@
 
         <!--#region Login -->
         <Grid ColumnDefinitions="*,*,*">
+            <Grid.BindingContext>
+                <vm:LoginViewModel x:Name="viewModelLogin"/>
+            </Grid.BindingContext>
             <StackLayout Grid.Column="1" VerticalOptions="Center" Padding="10" x:DataType="vm:LoginViewModel" IsVisible="{Binding EsValido,Converter={StaticResource BoolInvert}}">
-                <StackLayout.BindingContext>
-                    <vm:LoginViewModel x:Name="viewModelLogin"/>
-                </StackLayout.BindingContext>
-
                 <Image Aspect="AspectFit" Source="{helpers:ImageResource receptionIcon.png}"/>
 
                 <Picker Margin="10" VerticalOptions="Center" ItemsSource="{Binding Recepcionistas}" SelectedItem="{Binding Recepcionista}" ItemDisplayBinding="{Binding Nombre}"/>
@@ -32,6 +31,13 @@
 
                 <Button Command="{Binding AutentificarCommand}" CornerRadius="10" Text="✔️ Entrar" BackgroundColor="#09A285"/>
             </StackLayout>
+            <Grid Grid.ColumnSpan="2" IsVisible="{Binding CargarRecepcionistasCommand.Processing}" x:DataType="vm:LoginViewModel">
+                <BoxView BackgroundColor="Black" Opacity="0.9"/>
+                <StackLayout>
+                    <ActivityIndicator HorizontalOptions="Center"/>
+                    <Label HorizontalOptions="Center">Conectando....</Label>
+                </StackLayout>
+            </Grid>
         </Grid>
         <!--#endregion-->
 

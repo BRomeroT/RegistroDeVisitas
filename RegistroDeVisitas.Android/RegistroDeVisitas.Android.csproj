@@ -45,6 +45,10 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Apps\RegistroDeVisitas\Deploy\Droid\RegistroDeVisitas.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>Fracc2715</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>RegistroDeVistias</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>Fracc2715</AndroidSigningKeyPass>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

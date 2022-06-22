@@ -17,11 +17,7 @@ namespace Core.ViewModels
     {
         public LoginViewModel() : base()
         {
-            Task.Run(async () =>
-            {
-                Recepcionistas = new(await bl.Recepcionistas());
-                Recepcionista = Recepcionistas.FirstOrDefault();
-            });
+            //CargarRecepcionistasCommand.Execute(null);
         }
 
         private bool esValido;
@@ -44,6 +40,17 @@ namespace Core.ViewModels
                EsValido = await bl.Iniciar(Recepcionista.Id, Codigo);
            }, () => Validate(this, false)
             , dependencies: (this, new[] { nameof(Codigo) }));
+        }
+
+
+        RelayCommand cargarRecepcionistasCommand = null;
+        public RelayCommand CargarRecepcionistasCommand
+        {
+            get => cargarRecepcionistasCommand ??= new RelayCommand(async () =>
+            {
+                Recepcionistas = new(await bl.Recepcionistas());
+                Recepcionista = Recepcionistas.FirstOrDefault();
+            }, () => true);
         }
     }
 }
